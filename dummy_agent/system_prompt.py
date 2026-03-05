@@ -17,6 +17,12 @@ example use :
   "action_input": {"location": "New York"}
 }}
 
+calculator: Add two numbers, args: {"a": {"type": "integer"}, "b": {"type": "integer"}}
+example use :
+{{
+  "action": "calculator",
+  "action_input": {"a": 1, "b": 2}
+}}
 
 ALWAYS use the following format:
 

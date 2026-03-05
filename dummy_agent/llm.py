@@ -4,6 +4,7 @@ import os
 from huggingface_hub import InferenceClient
 from system_prompt import SYSTEM_PROMPT
 from getweather_tool import get_weather
+from calculator import calculator
 
 HF_TOKEN = os.environ.get("HF_TOKEN")
 
@@ -63,9 +64,44 @@ client = InferenceClient(
 # print(output.choices[0].message.content)
 
 # ******************5***********************
+# messages = [
+#     {"role": "system", "content": SYSTEM_PROMPT},
+#     {"role": "user", "content": "What's the weather in London?"}
+# ]
+
+# # Step 1: Ask the model what action to take
+# output = client.chat.completions.create(
+#     messages=messages,
+#     max_tokens=150,
+#     stop=["Observation:"],
+#     extra_body={'thinking': {'type': 'disabled'}},
+# )
+
+# assistant_message = output.choices[0].message.content
+# print(assistant_message)
+
+# # Step 2: Execute the tool
+# weather = get_weather("London")
+
+# # Step 3: Send observation back to the model
+# messages.append({
+#     "role": "assistant",
+#     "content": assistant_message + "Observation:\n" + weather
+# })
+
+# # Step 4: Final answer
+# final_output = client.chat.completions.create(
+#     messages=messages,
+#     max_tokens=200,
+#     extra_body={'thinking': {'type': 'disabled'}},
+# )
+
+# print(final_output.choices[0].message.content)
+
+# ******************6***********************
 messages = [
     {"role": "system", "content": SYSTEM_PROMPT},
-    {"role": "user", "content": "What's the weather in London?"}
+    {"role": "user", "content": "What is the sum of 5 and 5?"}
 ]
 
 # Step 1: Ask the model what action to take
@@ -80,12 +116,12 @@ assistant_message = output.choices[0].message.content
 print(assistant_message)
 
 # Step 2: Execute the tool
-weather = get_weather("London")
+calculator_result = calculator(1, 2)
 
 # Step 3: Send observation back to the model
 messages.append({
     "role": "assistant",
-    "content": assistant_message + "Observation:\n" + weather
+    "content": f"{assistant_message}Observation:\n{calculator_result}"
 })
 
 # Step 4: Final answer
