@@ -17,3 +17,17 @@ endpoint = HuggingFaceEndpoint(
 
 # Wrap in chat interface
 llm = ChatHuggingFace(llm=endpoint)
+
+# from langchain_ollama import ChatOllama
+# from langchain_core.messages import HumanMessage
+
+# llm = ChatOllama(
+#     model="qwen3.5:4b",
+#     temperature=0.7
+# )
+
+# # response = llm.invoke([
+# #     HumanMessage(content="Explain LangGraph simply")
+# # ])
+
+# # print(response.content)
