@@ -59,6 +59,11 @@ async def main():
 
     alfred = builder.compile()
 
+    graph_png = alfred.get_graph().draw_mermaid_png()
+
+    with open("agent_graph.png", "wb") as f:
+        f.write(graph_png)
+
     messages = [
         HumanMessage(content="What is the capital of India?")
     ]
