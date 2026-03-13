@@ -19,6 +19,14 @@ def get_conversation_started_tool(query: str) -> str:
         return "\n\n".join([doc.text for doc in results[:3]])
     else:
         return "No matching guest information found."
+    
+def get_total_guest(query: str) -> str:
+    """Retrieves the total number of guests attending the gala."""
+    results = bm25_retriever.retrieve(query)
+    if results:
+        return "\n\n".join([doc.text for doc in results[:3]])
+    else:
+        return "No matching guest information found."
 
 # Initialize the tool
 guest_info_tool = Tool(
@@ -33,3 +41,8 @@ conversation_started_tool = Tool(
     description="Retrieves detailed information about gala guests to start conversation."
 )
 
+get_guest_total_tool = Tool(
+    name="get_guest_total_tool",
+    func=get_total_guest,
+    description="Retrieves the total number of guests attending the gala."
+)
